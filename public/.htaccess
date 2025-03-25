@@ -1,0 +1,20 @@
+# Rubala
+#
+# Copyright (c) 2025, Jasper V. Ferrer
+#
+# This file is part of the Rubala source code.
+#
+# For licensing information, please see the LICENSE file distributed with this code.
+# For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Don't rewrite if the request is already for index.fcgi
+    RewriteCond %{REQUEST_URI} !^/index\.fcgi$
+
+    # Only rewrite requests that end with .fcgi
+    RewriteCond %{REQUEST_URI} \.fcgi$
+
+    RewriteRule ^(.*)$ /index.fcgi [L,QSA]
+</IfModule>
