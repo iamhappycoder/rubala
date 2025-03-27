@@ -13,24 +13,15 @@ project(Rubala)
 
 set(CMAKE_CXX_STANDARD 23)
 
-set(SOURCES
-    src/Interfaces/Http/Fcgi/index.cpp
-    src/Infrastructure/Routing/Router.cpp
+# List of subdirectories (modules) to add
+set(SUBDIRECTORIES
+        src/Application
+        src/Domain
+        src/Infrastructure
+        src/Interfaces
 )
 
-add_executable(index.fcgi
-               ${SOURCES}
-)
-
-target_include_directories(index.fcgi PRIVATE
-        src/
-)
-
-target_link_libraries(index.fcgi
-                      fcgi
-                      fcgi++
-)
-
-set_target_properties(index.fcgi PROPERTIES
-                      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/public/
-)
+# Loop over the subdirectories and call add_subdirectory
+foreach(subdir ${SUBDIRECTORIES})
+    add_subdirectory(${subdir})
+endforeach()
