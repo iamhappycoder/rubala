@@ -9,14 +9,11 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-#include <iostream>
 #include <string_view>
 #include <sstream>
-#include <unordered_map>
 #include <fcgio.h>
-#include <cstdlib>
 
-#include "router.h"
+#include "Infrastructure/Routing/Router.h"
 
 struct ParsedUrl {
     std::string_view path;
@@ -41,6 +38,11 @@ void about(std::ostream& out, std::ostream& /*err*/) {
         << "<html><body><h1>About Us</h1></body></html>\n";
 }
 
+void contact(std::ostream& out, std::ostream& /*err*/) {
+    out << "Content-Type: text/html\r\n\r\n"
+        << "<html><body><h1>Contact Us</h1></body></html>\n";
+}
+
 void api_transactions(std::ostream& out, std::ostream& /*err*/) {
     out << "Content-Type: text/html\r\n\r\n"
         << "<html><body><h1>Transactions API</h1></body></html>\n";
@@ -49,8 +51,10 @@ void api_transactions(std::ostream& out, std::ostream& /*err*/) {
 int main() {
     Router router;
     router.addRoute("/", home);
+    router.addRoute("/index.fcgi", home);
     router.addRoute("/api/transactions.fcgi", api_transactions);
     router.addRoute("/about.fcgi", about);
+    router.addRoute("/contact.fcgi", contact);
 
     FCGX_Request request;
     FCGX_Init();

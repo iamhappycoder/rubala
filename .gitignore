@@ -9,4 +9,5 @@
 
 .idea/
 build/
+cmake-build-debug/
 public/index.fcgi

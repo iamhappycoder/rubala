@@ -9,7 +9,7 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-#include "router.h"
+#include "Router.h"
 
 void Router::addRoute(std::string_view path, std::function<void(std::ostream&, std::ostream&)> handler) {
     routes[path] = std::move(handler);

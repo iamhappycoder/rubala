@@ -14,12 +14,16 @@ project(Rubala)
 set(CMAKE_CXX_STANDARD 23)
 
 set(SOURCES
-    main.cpp
-    router.cpp
+    src/Interfaces/Http/Fcgi/index.cpp
+    src/Infrastructure/Routing/Router.cpp
 )
 
 add_executable(index.fcgi
                ${SOURCES}
+)
+
+target_include_directories(index.fcgi PRIVATE
+        src/
 )
 
 target_link_libraries(index.fcgi
@@ -28,7 +32,5 @@ target_link_libraries(index.fcgi
 )
 
 set_target_properties(index.fcgi PROPERTIES
-                      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+                      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/public/
 )
-
-install(TARGETS index.fcgi DESTINATION ${CMAKE_SOURCE_DIR}/public/)
