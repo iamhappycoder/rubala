@@ -7,21 +7,20 @@
 # For licensing information, please see the LICENSE file distributed with this code.
 # For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
 
-add_library(interfaces STATIC
-        Http/Controllers/Controller.cpp
+set(UNIT_TEST_SOURCES
+        Infrastructure/Routing/RouterUnitTest.cpp
 )
 
-add_executable(index.fcgi
-        Http/Fcgi/index.cpp
+add_executable(unit_tests
+        ${UNIT_TEST_SOURCES}
 )
 
-target_link_libraries(index.fcgi
+target_link_libraries(unit_tests
         interfaces
         infrastructure
-        fcgi
-        fcgi++
+        gtest
+        gtest_main
+        pthread
 )
 
-set_target_properties(index.fcgi PROPERTIES
-                      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/public/
-)
+add_test(NAME unit_tests COMMAND unit_tests)

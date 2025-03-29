@@ -11,17 +11,18 @@ cmake_minimum_required(VERSION 3.28.3)
 
 project(Rubala)
 
+include_directories(${CMAKE_SOURCE_DIR}/src/)
+
+include(cmake/CMakeRequire.cmake)
+
+# TODO make this conditional
+include(cmake/CMakeRequireDev.cmake)
+add_subdirectory(tests)
+
+if(NOT CMAKE_BUILD_TYPE)
+    message(FATAL_ERROR "Please specify CMAKE_BUILD_TYPE (e.g., Debug, Release, RelWithDebInfo).")
+endif()
+
 set(CMAKE_CXX_STANDARD 23)
 
-# List of subdirectories (modules) to add
-set(SUBDIRECTORIES
-        src/Application
-        src/Domain
-        src/Infrastructure
-        src/Interfaces
-)
-
-# Loop over the subdirectories and call add_subdirectory
-foreach(subdir ${SUBDIRECTORIES})
-    add_subdirectory(${subdir})
-endforeach()
+add_subdirectory(src)

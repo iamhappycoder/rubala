@@ -7,6 +7,12 @@
 # For licensing information, please see the LICENSE file distributed with this code.
 # For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
 
-add_library(infrastructure STATIC
-        Routing/Router.cpp
+set(SUBDIRECTORIES
+        Unit
+        Integration
+        Functional
 )
+
+foreach(subdir ${SUBDIRECTORIES})
+    add_subdirectory(${subdir})
+endforeach()
